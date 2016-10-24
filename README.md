@@ -1,6 +1,6 @@
-=====
-NewPy
-=====
+======
+new.py
+======
 
 *A simple utility to create files and folders based on templates*
 

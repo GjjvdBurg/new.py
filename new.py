@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-NewPy: A simple utility to create files and folders based on templates.
+new.py: A simple utility to create files and folders based on templates.
 
 With this program you can define template files, for instance a Python script
 with some documentation or functions already defined, or a directory for a
