@@ -5,7 +5,7 @@ NewPy: A simple utility to create files and folders based on templates.
 
 With this program you can define template files, for instance a Python script
 with some documentation or functions already defined, or a directory for a
-LaTeX document. See the examples directory for an example of a Python script.
+LaTeX document. See the example directory for an example of a Python script.
 
 Usage is quite simple, type::
 
