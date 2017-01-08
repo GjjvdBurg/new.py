@@ -75,6 +75,8 @@ def list_targets():
         A mapping between target names and template files/dirs.
 
     """
+    if not os.path.exists(TEMPLATE_DIR):
+        os.mkdir(TEMPLATE_DIR)
     files = os.listdir(TEMPLATE_DIR)
     templates = {}
     for f in files:
