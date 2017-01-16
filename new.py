@@ -179,10 +179,10 @@ def parse_args():
     if len(sys.argv) == 1 or len(sys.argv) > 3:
         fail()
     if len(sys.argv) == 2:
-        target = sys.argv[1].strip().lower()
+        target = sys.argv[1].strip()
         filename = None
     else:
-        target = sys.argv[1].strip().lower()
+        target = sys.argv[1].strip()
         filename = sys.argv[2].strip()
     if not target in list_targets():
         fail(target=target)
