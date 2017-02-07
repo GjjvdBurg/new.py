@@ -91,12 +91,19 @@ def list_targets():
 def show_targets():
     """Print a table of existing templates and their names
     """
+    def print_line(left, right, arrow=True):
+        s = "%s%s%s%s%s" % (left, ' ' * (max_length - len(left)), '->' if arrow 
+                else '  ', ' '*offset, right)
+        print(s)
+
     templates = list_targets()
-    print("Name\t  \tFile / Dir")
-    print("----\t  \t----------")
+    offset = 4
+    max_length = max((len(k) for k in templates.keys()))
+    max_length += offset
+    print_line("Name", "File / Dir", arrow=False)
+    print_line("----", "----------", arrow=False)
     for target in sorted(templates.keys()):
-        basefile = templates[target]
-        print("%s\t->\t%s" % (target, basefile))
+        print_line(target, templates[target])
     print("")
 
 
