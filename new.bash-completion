@@ -1,0 +1,21 @@
+# Bash completion file for new.py
+#
+# Copyright (c) G.J.J. van den Burg, 2018. All rights reserved.
+# This file is covered by the LICENSE file.
+#
+# It is assumed that the new.py command is aliased as simply "new".
+#
+# For usage, see the README file.
+#
+
+_newpy_complete()
+{
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD-1]}"
+	newpy_targets=`new | tail -n +5 | head -n -1 | cut -d' ' -f1`
+
+	COMPREPLY=( $(compgen -W "${newpy_targets}" -- ${cur}) )
+}
+
+complete -F _newpy_complete new

@@ -1,4 +1,3 @@
-======
 new.py
 ======
 
@@ -9,7 +8,7 @@ with some documentation or functions already defined, or a directory for a
 LaTeX document. See the example directory for an example of a Python script.
 
 Usage
-=====
+-----
 
 Usage is quite simple, type::
 
@@ -31,7 +30,7 @@ template to the current directory::
 
     ./new.py python
 
-This will create a new file in the current directory named `python.py`.  
+This will create a new file in the current directory named `python.py`. 
 Finally, there is the option of naming the file in the current directory 
 differently::
 
@@ -40,8 +39,9 @@ differently::
 This will create the file `myscript.py`, as a copy of the `python.py` 
 template.
 
+
 Installation
-============
+------------
 
 Simply download the script, create a template or two, and start using it! For 
 added usability, you can create an alias in your `~/.bashrc` file, for 
@@ -51,8 +51,19 @@ instance:
 
 Then you can simply type `new <target>` in your terminal.
 
+Bash Completion
+---------------
+
+If desired bash completion can be configured for the ``new`` command. This 
+assumes that you have aliased ``new.py`` using the description above. To 
+enable bash completion, add the following to your ``~/.bashrc`` file:
+
+    source /path/to/new.bash-completion
+
+This should enable tab-completion of new.py targets.
+
 Afterwords
-==========
+----------
 
 Author: G.J.J. van den Burg
 
