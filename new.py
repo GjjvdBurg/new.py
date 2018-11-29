@@ -59,7 +59,8 @@ import os
 import sys
 import shutil
 
-TEMPLATE_DIR = os.path.join(os.getenv('HOME'), ".newpy_templates/")
+TEMPLATE_DIR = os.path.join(os.getenv("HOME"), ".newpy_templates/")
+
 
 def list_targets():
     """Generate a list of templates and their names
@@ -83,7 +84,7 @@ def list_targets():
         basefile = os.path.basename(f)
         target = os.path.splitext(basefile)[0]
         if os.path.isdir(os.path.join(TEMPLATE_DIR, f)):
-            basefile += '/'
+            basefile += "/"
         templates[target] = basefile
     return templates
 
@@ -91,9 +92,15 @@ def list_targets():
 def show_targets():
     """Print a table of existing templates and their names
     """
+
     def print_line(left, right, arrow=True):
-        s = "%s%s%s%s%s" % (left, ' ' * (max_length - len(left)), '->' if arrow 
-                else '  ', ' '*offset, right)
+        s = "%s%s%s%s%s" % (
+            left,
+            " " * (max_length - len(left)),
+            "->" if arrow else "  ",
+            " " * offset,
+            right,
+        )
         print(s)
 
     templates = list_targets()
@@ -107,7 +114,7 @@ def show_targets():
     print("")
 
 
-def create_template(target, name=None):
+def create_template(target, names=None):
     """Create the actual output file from the template
 
     This function does the actual copying of the template file or directory. If
@@ -121,25 +128,26 @@ def create_template(target, name=None):
     target : str
         Name of the target to create
 
-    name : str
-        Name of the output file or directory, can be None.
+    names : list
+        List of name of the output file(s) or directory, can be None.
 
     """
     templates = list_targets()
     targetpath = os.path.join(TEMPLATE_DIR, templates[target])
     here = os.getcwd()
-    if name is None:
+    if names is None:
         if os.path.isdir(targetpath):
             shutil.copytree(targetpath, here)
         else:
             shutil.copy(targetpath, here)
     else:
-        if os.path.isdir(targetpath):
-            dest = os.path.join(here, name)
-            shutil.copytree(targetpath, dest)
-        else:
-            dest = os.path.join(here, name)
-            shutil.copy(targetpath, dest)
+        for name in names:
+            if os.path.isdir(targetpath):
+                dest = os.path.join(here, name)
+                shutil.copytree(targetpath, dest)
+            else:
+                dest = os.path.join(here, name)
+                shutil.copy(targetpath, dest)
 
 
 def fail(target=None):
@@ -183,19 +191,19 @@ def parse_args():
             desired, the second return argument is None.
 
     """
-    if len(sys.argv) == 1 or len(sys.argv) > 3:
+    if len(sys.argv) == 1:
         fail()
     if len(sys.argv) == 2:
         target = sys.argv[1].strip()
-        filename = None
+        filenames = None
     else:
         target = sys.argv[1].strip()
-        filename = sys.argv[2].strip()
+        filenames = [f.strip() for f in sys.argv[2:]]
     if not target in list_targets():
         fail(target=target)
-    return target, filename
+    return target, filenames
 
 
-if __name__ == '__main__':
-    target, filename = parse_args()
-    create_template(target, filename)
+if __name__ == "__main__":
+    target, filenames = parse_args()
+    create_template(target, filenames)
