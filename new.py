@@ -109,7 +109,8 @@ def show_targets():
     max_length += offset
     print_line("Name", "File / Dir", arrow=False)
     print_line("----", "----------", arrow=False)
-    for target in sorted(templates.keys()):
+    targets = sorted(templates.keys(), key=lambda v: v.lower())
+    for target in targets:
         print_line(target, templates[target])
     print("")
 
