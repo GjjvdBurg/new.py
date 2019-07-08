@@ -115,6 +115,38 @@ def show_targets():
     print("")
 
 
+def ask_question_yn(question, default=True):
+    suffix = "[Y/n]" if default else "[y/N]"
+    prompt = f"{question} {suffix} "
+    while True:
+        ans = input(prompt)
+        ans = ans.strip()
+        if ans == "":
+            return default
+        elif ans.lower() == "y":
+            return True
+        elif ans.lower() == "n":
+            return False
+
+        print("Invalid answer, please try again.")
+
+
+def safe_copytree(targetpath, dest):
+    if os.path.exists(dest) and not ask_question_yn(
+        "Directory exists, do you want to overwrite (merge) it?", default=True
+    ):
+        return
+    shutil.copytree(targetpath, dest)
+
+
+def safe_copy(targetpath, dest):
+    if os.path.exists(dest) and not ask_question_yn(
+        "File exists, do you want to overwrite it?", default=True
+    ):
+        return
+    shutil.copy(targetpath, dest)
+
+
 def create_template(target, names=None):
     """Create the actual output file from the template
 
@@ -138,17 +170,17 @@ def create_template(target, names=None):
     here = os.getcwd()
     if names is None:
         if os.path.isdir(targetpath):
-            shutil.copytree(targetpath, here)
+            safe_copytree(targetpath, here)
         else:
-            shutil.copy(targetpath, here)
+            safe_copy(targetpath, here)
     else:
         for name in names:
             if os.path.isdir(targetpath):
                 dest = os.path.join(here, name)
-                shutil.copytree(targetpath, dest)
+                safe_copytree(targetpath, dest)
             else:
                 dest = os.path.join(here, name)
-                shutil.copy(targetpath, dest)
+                safe_copy(targetpath, dest)
 
 
 def fail(target=None):
