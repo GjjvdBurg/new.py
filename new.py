@@ -140,8 +140,14 @@ def safe_copytree(targetpath, dest):
 
 
 def safe_copy(targetpath, dest):
-    if os.path.exists(dest) and not ask_question_yn(
-        "File exists, do you want to overwrite it?", default=True
+    isfile = os.path.isfile(dest)
+    exists = os.path.exists(dest)
+    if (
+        isfile
+        and exists
+        and not ask_question_yn(
+            "File exists, do you want to overwrite it?", default=True
+        )
     ):
         return
     shutil.copy(targetpath, dest)
