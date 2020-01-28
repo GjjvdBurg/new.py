@@ -62,6 +62,20 @@ import shutil
 TEMPLATE_DIR = os.path.join(os.getenv("HOME"), ".newpy_templates/")
 
 
+def dir_color(s):
+    try:
+        import colorama
+    except ImportError:
+        return s
+    colorama.init()
+    return (
+        colorama.Fore.BLUE
+        + colorama.Style.BRIGHT
+        + s
+        + colorama.Style.RESET_ALL
+    )
+
+
 def list_targets():
     """Generate a list of templates and their names
 
@@ -99,7 +113,7 @@ def show_targets():
             " " * (max_length - len(left)),
             "->" if arrow else "  ",
             " " * offset,
-            right,
+            dir_color(right) if right.endswith("/") else right,
         )
         print(s)
 
