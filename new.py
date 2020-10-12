@@ -119,7 +119,7 @@ def show_targets():
 
     templates = list_targets()
     offset = 4
-    max_length = max((len(k) for k in templates.keys()))
+    max_length = max((len(k) for k in templates.keys())) if templates else 0
     max_length += offset
     print_line("Name", "File / Dir", arrow=False)
     print_line("----", "----------", arrow=False)
@@ -150,7 +150,7 @@ def safe_copytree(targetpath, dest):
         "Directory exists, do you want to overwrite (merge) it?", default=True
     ):
         return
-    shutil.copytree(targetpath, dest)
+    shutil.copytree(targetpath, dest, dirs_exist_ok=True)
 
 
 def safe_copy(targetpath, dest):
